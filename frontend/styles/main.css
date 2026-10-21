@@ -1,0 +1,131 @@
+@import "_fonts.css";
+@import "_resets.css";
+
+/* Definition of base styles. */
+:root {
+    /* colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-accent: #FFA20B;
+    --color-font: #900AFF;
+    /* gaps & sizes */
+    --gap-around: 40px;
+    /* font families */
+    --font-family-falaro: 'Falaro', serif;
+    --font-family-poppins: 'Poppins-Regular', sans-serif;
+    /* fonts */
+    --font-h1: normal 40px/120% var(--font-family-falaro) ;
+    --font-h2: normal 20px/120% var(--font-family-poppins) ;
+}
+
+
+/* Styling of all available layout components. */
+[data-layout="header"] {
+    padding: var(--gap-around);
+    background-color: var(--color-accent);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+        display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .nav-container {
+        width: 100%;
+
+        .nav {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            a {
+                text-decoration: none;
+                color: var(--color-font);
+                font: var(--font-h1);
+
+            }
+        }
+    }
+}
+
+[data-layout="footer"] {
+    padding: var(--gap-around);
+    background-color: var(--color-accent);
+    .nav-container {
+
+        .nav {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            a {
+                text-decoration: none;
+                color: var(--color-font);
+                font: var(--font-h2);
+
+            }
+        }
+    }
+}
+
+/* Styling of all available page components. */
+[data-page] {
+    width: 100%;
+    height: 100%;
+}
+
+/* Styling of all available module components. */
+[data-module] {
+    overflow: clip;
+    position: relative;
+    width: 100%;
+}
+[data-module="example"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    & > .image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        inset: 0;
+    }
+    & > .title {
+        position: relative;
+        color: white;
+        font: var(--font-h1);
+        text-align: center;
+    }
+}
+
+/* Styling of all available teaser components. */
+
+/* Styling of utility classes, can be added anywhere in the project. */
+
+/* BREAKPOINT: 3xl */
+@media (max-width: 1514px) {}
+
+/* BREAKPOINT: xl */
+@media (max-width: 1280px) {}
+
+/* BREAKPOINT: lg */
+@media (max-width: 1024px) {}
+
+/* BREAKPOINT: md */
+@media (max-width: 768px) {}
+
+/* BREAKPOINT: sm */
+@media (max-width: 640px) {}
+
+/* BREAKPOINT: xs */
+@media (max-width: 425px) {}
+
+/* BREAKPOINT: xxs */
+@media (max-width: 400px) {}
