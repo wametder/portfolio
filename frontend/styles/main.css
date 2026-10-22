@@ -6,8 +6,9 @@
     /* colors */
     --color-white: #ffffff;
     --color-black: #000000;
-    --color-accent: #FFA20B;
-    --color-font: #900AFF;
+    --color-orange: #FFA20B;
+    --color-purple: #900AFF;
+    --color-green: #0AFF66;
     /* gaps & sizes */
     --gap-around: 40px;
     /* font families */
@@ -22,7 +23,7 @@
 /* Styling of all available layout components. */
 [data-layout="header"] {
     padding: var(--gap-around);
-    background-color: var(--color-accent);
+    background-color: var(--color-orange);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -32,7 +33,6 @@
     align-items: center;
     .nav-container {
         width: 100%;
-
         .nav {
             list-style: none;
             display: flex;
@@ -42,17 +42,24 @@
             width: 100%;
             a {
                 text-decoration: none;
-                color: var(--color-font);
+                color: var(--color-purple);
                 font: var(--font-h1);
-
+                &:hover {
+                    color: var(--color-green);
+                }
             }
         }
+    }
+    .logo {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
     }
 }
 
 [data-layout="footer"] {
     padding: var(--gap-around);
-    background-color: var(--color-accent);
+    background-color: var(--color-orange);
     .nav-container {
 
         .nav {
@@ -64,11 +71,18 @@
             gap: 20px;
             a {
                 text-decoration: none;
-                color: var(--color-font);
                 font: var(--font-h2);
-
+                color: var(--color-purple);
+                &:hover {
+                    color: var(--color-green);
+                }
             }
         }
+    }
+    .illuface {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
     }
 }
 

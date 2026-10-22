@@ -1,5 +1,6 @@
 <?php
 $menu = get_menu_by_slug( slug: 'main');
+$logo = get_globals_logo();
 ?>
 
 <header data-layout="header">
@@ -14,4 +15,5 @@ $menu = get_menu_by_slug( slug: 'main');
             <?php endforeach; ?>
         </ul>
     </nav>
+    <img class="logo" src="<?= ($logo['src']) ?>" alt="<?= ($logo['alt']) ?>">
 </header>

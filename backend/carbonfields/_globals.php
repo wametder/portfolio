@@ -5,5 +5,7 @@ use Carbon_Fields\Field;
 // -> Inhaltsfeld-Konfiguration der globalen Einstellungen des Themes
 Container::make('theme_options', 'Globales')
     ->add_fields([
+        Field::make('image', 'logo', 'Logo'),
+        Field::make('image', 'illuface', 'Illustration_Gesicht'),
         // todo: Globale Inhaltsfelder hier ergänzen
     ]);
