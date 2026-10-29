@@ -9,6 +9,7 @@
     --color-orange: #FFA20B;
     --color-purple: #900AFF;
     --color-green: #0AFF66;
+    --color-grey: #D9D9D9;
     /* gaps & sizes */
     --gap-around: 40px;
     /* font families */
@@ -91,6 +92,80 @@
     width: 100%;
     height: 100%;
 }
+[data-page ="project"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 520px));
+    justify-content: center;
+    align-items: center;
+    gap: clamp(40px, 8vw, 140px);
+    min-height: calc(100vh - 180px);
+    padding: clamp(60px, 10vw, 150px) clamp(40px, 12vw, 180px);
+    background: var(--color-grey);
+    color: var(--color-orange);
+
+    .project-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        max-width: 560px;
+        text-align: center;
+    }
+
+    .illustration {
+        width: clamp(90px, 8vw, 120px);
+        height: clamp(90px, 8vw, 120px);
+        margin-bottom: 24px;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .title {
+        margin: 0 0 18px;
+        color: var(--color-orange);
+        font: var(--font-h1);
+        font-family: var(--font-family-poppins);
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    .lead {
+        margin: 0 0 clamp(35px, 5vw, 65px);
+        color: var(--color-orange);
+        font: var(--font-h2);
+        font-size: clamp(20px, 2vw, 28px);
+    }
+
+    .text {
+        color: var(--color-orange);
+        font: var(--font-h2);
+        font-size: clamp(18px, 1.6vw, 24px);
+        line-height: 1.45;
+
+        p {
+            margin: 0 0 1em;
+        }
+    }
+
+    .media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-height: 70vh;
+        background: #5b5b5b;
+        overflow: hidden;
+    }
+
+    .media img,
+    .media video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        object-fit: contain;
+    }
+}
 
 /* Styling of all available module components. */
 [data-module] {
@@ -133,7 +208,22 @@
 @media (max-width: 1024px) {}
 
 /* BREAKPOINT: md */
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+    [data-page="project"] {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        min-height: auto;
+        padding: 60px 30px;
+
+        .project-info {
+            max-width: none;
+        }
+
+        .media {
+            max-height: none;
+        }
+    }
+}
 
 /* BREAKPOINT: sm */
 @media (max-width: 640px) {}
