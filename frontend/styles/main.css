@@ -16,14 +16,14 @@
     --font-family-falaro: 'Falaro', serif;
     --font-family-poppins: 'Poppins-Regular', sans-serif;
     /* fonts */
-    --font-h1: normal 40px/120% var(--font-family-falaro) ;
+    --font-h1: normal 30px/120% var(--font-family-falaro) ;
     --font-h2: normal 20px/120% var(--font-family-poppins) ;
 }
 
 
 /* Styling of all available layout components. */
 [data-layout="header"] {
-    padding: var(--gap-around);
+    padding: 10px 24px;
     background-color: var(--color-orange);
     position: sticky;
     top: 0;
@@ -52,8 +52,8 @@
         }
     }
     .logo {
-        width: 100px;
-        height: 100px;
+        width: 48px;
+        height: 48px;
         object-fit: contain;
     }
 }

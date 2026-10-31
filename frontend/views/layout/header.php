@@ -15,5 +15,11 @@ $logo = get_globals_logo();
             <?php endforeach; ?>
         </ul>
     </nav>
-    <img class="logo" src="<?= ($logo['src']) ?>" alt="<?= ($logo['alt']) ?>">
+    <?php if ($logo && $logo['type'] === 'image') : ?>
+        <img class="logo" src="<?= esc_url($logo['src']) ?>" alt="<?= esc_attr($logo['alt']) ?>">
+    <?php elseif ($logo && strpos($logo['type'], 'video/') === 0) : ?>
+        <video class="logo" autoplay muted loop playsinline aria-label="<?= esc_attr($logo['alt']) ?>">
+            <source src="<?= esc_url($logo['src']) ?>" type="<?= esc_attr($logo['type']) ?>">
+        </video>
+    <?php endif; ?>
 </header>
