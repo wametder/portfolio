@@ -181,19 +181,53 @@
     height: 100vh;
     & > .image {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
         inset: 0;
+        margin: auto;
     }
     & > .title {
         position: relative;
-        color: white;
+        color: var(--color-purple);
         font: var(--font-h1);
         text-align: center;
     }
+    & > .subline {
+        position: relative;
+        color: var(--color-purple);
+        font: var(--font-h2);
+        text-align: center;
+    }
 }
-
+[data-module="hero_front"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    isolation: isolate;
+    & > .image {
+        position: absolute;
+        object-fit: cover;
+        inset: 0 auto auto 0;
+        z-index: 0;
+    }
+    & > .title {
+        position: relative;
+        color: var(--color-purple);
+        font: var(--font-h1);
+        text-align: center;
+        z-index: 1;
+    }
+    & > .subline {
+        position: relative;
+        color: var(--color-purple);
+        font: var(--font-h2);
+        text-align: center;
+        z-index: 1;
+    }
+}
 /* Styling of all available teaser components. */
 
 /* Styling of utility classes, can be added anywhere in the project. */
