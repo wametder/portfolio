@@ -228,6 +228,142 @@
         z-index: 1;
     }
 }
+[data-module="overview_projects"] {
+    padding: clamp(40px, 8vw, 120px) clamp(24px, 4vw, 64px);
+    background: var(--color-grey);
+
+    & > .title {
+        margin: 0 0 40px;
+        color: var(--color-orange);
+        font: var(--font-h2);
+        text-align: center;
+    }
+
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(20px, 3vw, 48px);
+    }
+
+    .project {
+        display: block;
+        color: var(--color-orange);
+        text-decoration: none;
+
+        &:hover .illustration,
+        &:focus-visible .illustration {
+            opacity: 0;
+        }
+
+        .image {
+            position: relative;
+            display: block;
+            line-height: 0;
+        }
+
+        .preview {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .illustration {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 35%;
+            height: 35%;
+            object-fit: contain;
+            transform: translate(-50%, -50%);
+            transition: opacity 180ms ease;
+        }
+
+        .project-title {
+            margin: 14px 0 0;
+            font: var(--font-h2);
+            transition: color 180ms ease;
+        }
+
+        &:hover .project-title,
+        &:focus-visible .project-title {
+            color: var(--color-purple);
+        }
+    }
+}
+[data-module="about_me"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 520px));
+    justify-content: center;
+    align-items: center;
+    gap: clamp(40px, 8vw, 140px);
+    min-height: calc(100vh - 180px);
+    padding: clamp(60px, 10vw, 150px) clamp(40px, 12vw, 180px);
+    background: var(--color-grey);
+    color: var(--color-orange);
+
+    .about-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        max-width: 560px;
+        text-align: center;
+    }
+
+    .illustration {
+        width: clamp(90px, 8vw, 120px);
+        height: clamp(90px, 8vw, 120px);
+        margin-bottom: 24px;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .title {
+        margin: 0 0 18px;
+        color: var(--color-orange);
+        font: var(--font-h1);
+        font-family: var(--font-family-poppins);
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    .lead {
+        margin: 0 0 clamp(35px, 5vw, 65px);
+        color: var(--color-orange);
+        font: var(--font-h2);
+        font-size: clamp(20px, 2vw, 28px);
+    }
+
+    .text {
+        color: var(--color-orange);
+        font: var(--font-h2);
+        font-size: clamp(18px, 1.6vw, 24px);
+        line-height: 1.45;
+
+        p {
+            margin: 0 0 1em;
+        }
+    }
+
+    .media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-height: 70vh;
+        background: #5b5b5b;
+        overflow: hidden;
+    }
+
+    .media img,
+    .media video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        object-fit: contain;
+    }
+}
 /* Styling of all available teaser components. */
 
 /* Styling of utility classes, can be added anywhere in the project. */
@@ -250,6 +386,21 @@
         padding: 60px 30px;
 
         .project-info {
+            max-width: none;
+        }
+
+        .media {
+            max-height: none;
+        }
+    }
+
+    [data-module="about_me"] {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        min-height: auto;
+        padding: 60px 30px;
+
+        .about-info {
             max-width: none;
         }
 

@@ -6,6 +6,7 @@ use Carbon_Fields\Field;
 Container::make('post_meta', 'Projekt')
     ->where('post_type', '=', 'project')
     ->add_fields([
+        Field:: make('image', 'preview', 'Vorschaubild') -> set_required(true),
         Field::make('file', 'image', 'Bild / Video')
             ->set_type(['image', 'video'])
             ->set_required(true),
