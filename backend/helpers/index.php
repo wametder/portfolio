@@ -33,6 +33,37 @@ function get_media_by_id(int|string $id, string $size = 'm'): false|array
     return $data;
 }
 
+// -> Eine sichere YouTube-Embed-URL aus einer YouTube-URL erstellen
+function get_youtube_embed_url(?string $url): false|string
+{
+    $url = trim((string) $url);
+    if ($url === '') {
+        return false;
+    }
+
+    $parts = wp_parse_url($url);
+    $host = strtolower($parts['host'] ?? '');
+    $host = preg_replace('/^www\./', '', $host);
+    $video_id = '';
+
+    if ($host === 'youtu.be') {
+        $video_id = trim($parts['path'] ?? '', '/');
+    } elseif (in_array($host, ['youtube.com', 'm.youtube.com'], true)) {
+        if (($parts['path'] ?? '') === '/watch') {
+            parse_str($parts['query'] ?? '', $query);
+            $video_id = $query['v'] ?? '';
+        } elseif (preg_match('#^/(?:embed|shorts)/([^/?]+)#', $parts['path'] ?? '', $matches)) {
+            $video_id = $matches[1];
+        }
+    }
+
+    if (!preg_match('/^[A-Za-z0-9_-]{11}$/', $video_id)) {
+        return false;
+    }
+
+    return 'https://www.youtube.com/embed/' . $video_id;
+}
+
 // -> Ein Menu anhand des Keys laden
 function get_menu_by_slug(string $slug): array
 {
