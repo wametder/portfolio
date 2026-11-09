@@ -31,11 +31,12 @@ $project = get_project_by_id(get_the_ID());
         </div>
     <?php endif; ?>
 
-        <?php if ($youtube_url = get_youtube_embed_url($project['youtube_url'])): ?>
-            <div class="media youtube">
+        <?php if ($video_url = get_video_embed_url($project['youtube_url'])): ?>
+            <div class="media video-embed">
                 <iframe
-                    src="<?= esc_url($youtube_url) ?>"
-                    title="YouTube-Video zu <?= esc_attr($project['title']) ?>"
+                    src="<?= esc_url($video_url) ?>"
+                    style="--ratio: <?= esc_attr(get_video_embed_ratio($project['youtube_url'])) ?>"
+                    title="Video zu <?= esc_attr($project['title']) ?>"
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen
