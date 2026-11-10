@@ -59,6 +59,8 @@
 }
 
 [data-layout="footer"] {
+    position: relative;
+    z-index: 2;
     padding: var(--gap-around);
     background-color: var(--color-orange);
     .nav-container {
@@ -191,6 +193,8 @@
 }
 
 [data-module="hero_front"] {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -201,6 +205,7 @@
         position: absolute;
         object-fit: cover;
         inset: 0 auto auto 0;
+        background-color: var(--color-grey);
         z-index: 0;
     }
     & > .title {
@@ -219,10 +224,24 @@
     }
 }
 [data-module="overview_projects"] {
+    isolation: isolate;
     padding: clamp(40px, 8vw, 120px) clamp(24px, 4vw, 64px);
     background: var(--color-grey);
 
+    & > .illuface-background {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 0;
+        width: min(80vw, 1000px);
+        height: auto;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+    }
+
     & > .title {
+        position: relative;
+        z-index: 1;
         margin: 0 0 40px;
         color: var(--color-orange);
         font: var(--font-h2);
@@ -230,6 +249,8 @@
     }
 
     .projects {
+        position: relative;
+        z-index: 1;
         --project-gap: clamp(20px, 3vw, 48px);
         column-count: 3;
         column-gap: var(--project-gap);

@@ -1,9 +1,11 @@
 <?php
 $data = $args['data'];
+$illuface = get_globals_illuface();
 js_log($data);
 ?>
 
 <section data-module="overview_projects">
+    <img class="illuface-background" src="<?= esc_url($illuface['src']) ?>" alt="" aria-hidden="true">
     <h2 class="title"><?= esc_html($data['title']) ?></h2>
     <div class="projects">
         <?php foreach ($data['selection'] as $project_id): ?>
