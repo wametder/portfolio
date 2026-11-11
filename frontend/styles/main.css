@@ -260,7 +260,7 @@
         display: block;
         break-inside: avoid;
         margin-bottom: var(--project-gap);
-        color: var(--color-orange);
+        color: var(--color-purple);
         text-decoration: none;
 
         &:hover .illustration,
@@ -305,7 +305,7 @@
 
         &:hover .project-title,
         &:focus-visible .project-title {
-            color: var(--color-green);
+            color: var(--color-orange);
         }
     }
 }
