@@ -243,7 +243,7 @@
         position: relative;
         z-index: 1;
         margin: 0 0 40px;
-        color: var(--color-orange);
+        color: var(--color-purple);
         font: var(--font-h2);
         text-align: center;
     }
@@ -305,7 +305,7 @@
 
         &:hover .project-title,
         &:focus-visible .project-title {
-            color: var(--color-purple);
+            color: var(--color-green);
         }
     }
 }
