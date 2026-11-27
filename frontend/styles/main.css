@@ -61,7 +61,12 @@
 [data-layout="footer"] {
     position: relative;
     z-index: 2;
-    padding: var(--gap-around);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: calc(var(--gap-around) / 2) var(--gap-around);
     background-color: var(--color-orange);
     .nav-container {
 
@@ -83,8 +88,8 @@
         }
     }
     .illuface {
-        width: 100px;
-        height: 100px;
+        width: 50px;
+        height: 50px;
         object-fit: contain;
     }
 }
@@ -100,7 +105,7 @@
     justify-content: center;
     align-items: center;
     gap: clamp(40px, 8vw, 140px);
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 146px);
     padding: clamp(60px, 10vw, 150px) clamp(40px, 12vw, 180px);
     background: var(--color-grey);
     color: var(--color-orange);
@@ -223,89 +228,141 @@
         z-index: 1;
     }
 }
-[data-module="overview_projects"] {
-    isolation: isolate;
-    padding: clamp(40px, 8vw, 120px) clamp(24px, 4vw, 64px);
+/* Work-Rad: Seite genau 100vh hoch, Header und Footer bleiben sichtbar, die Seite scrollt nicht. */
+html:has(.work-wheel) {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+body:has(.work-wheel) {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: calc(100vh - var(--wp-admin--admin-bar--height, 0px));
+    height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
+    overflow: hidden;
+    overscroll-behavior: none;
+    & > main {
+        min-height: 0;
+        height: 100%;
+    }
+}
+.work-wheel {
+    --work-wheel-fade: 250ms;
+    --work-wheel-row: 2.75rem; /* Zeilenhöhe eines Titels; JS verkleinert sie, falls 7 Titel nicht passen */
+    --work-wheel-font-size: 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-rows: clamp(80px, 16vh, 160px) minmax(0, 1fr);
+    grid-template-areas:
+        "preview illustration animation"
+        "preview list         animation";
+    gap: 16px clamp(24px, 3vw, 64px);
+    height: 100%;
+    padding: clamp(16px, 4vh, 48px) var(--gap-around);
     background: var(--color-grey);
+    touch-action: none;
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 
-    & > .illuface-background {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        z-index: 0;
-        width: min(80vw, 1000px);
-        height: auto;
-        pointer-events: none;
-        transform: translate(-50%, -50%);
-    }
-
-    & > .title {
+    .work-wheel__preview,
+    .work-wheel__illustration,
+    .work-wheel__animation {
         position: relative;
-        z-index: 1;
-        margin: 0 0 40px;
-        color: var(--color-purple);
-        font: var(--font-h2);
-        text-align: center;
-    }
-
-    .projects {
-        position: relative;
-        z-index: 1;
-        --project-gap: clamp(20px, 3vw, 48px);
-        column-count: 3;
-        column-gap: var(--project-gap);
-    }
-
-    .project {
         display: block;
-        break-inside: avoid;
-        margin-bottom: var(--project-gap);
-        color: var(--color-purple);
-        text-decoration: none;
-
-        &:hover .illustration,
-        &:focus-visible .illustration {
-            opacity: 0;
-        }
-
-        .image {
-            position: relative;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            max-height: 500px;
-            overflow: hidden;
-            line-height: 0;
-        }
-
-        .preview {
-            display: block;
-            width: auto;
-            max-width: 100%;
-            max-height: 500px;
-            object-fit: contain;
-        }
-
-        .illustration {
+        min-height: 0;
+    }
+    .work-wheel__preview {
+        grid-area: preview;
+        cursor: pointer;
+    }
+    .work-wheel__illustration {
+        grid-area: illustration;
+    }
+    .work-wheel__animation {
+        grid-area: animation;
+        canvas {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 50%;
-            height: 50%;
-            object-fit: contain;
-            transform: translate(-50%, -50%);
-            transition: opacity 180ms ease;
+            inset: 0;
+            width: 100%;
+            height: 100%;
         }
+    }
 
-        .project-title {
-            margin: 14px 0 0;
-            font: var(--font-h2);
-            transition: color 180ms ease;
+    /* Bild-Layer für den Crossfade */
+    .work-wheel__layer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity var(--work-wheel-fade) ease;
+        -webkit-user-drag: none;
+        &.is-current {
+            opacity: 1;
         }
+    }
 
-        &:hover .project-title,
-        &:focus-visible .project-title {
+    .work-wheel__list {
+        grid-area: list;
+        position: relative;
+        min-height: 0;
+        list-style: none;
+        overflow: hidden;
+        scrollbar-width: none;
+        text-align: center;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    .work-wheel__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--work-wheel-row-current, var(--work-wheel-row));
+        min-width: 0;
+    }
+    /* Mit JS: alle Titel liegen in der vertikalen Mitte, JS verschiebt sie per transform */
+    &.is-ready .work-wheel__item {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        left: 0;
+        transform: translateY(-50%);
+        will-change: transform, opacity;
+    }
+
+    .work-wheel__link {
+        display: block;
+        max-width: 100%;
+        padding: 0 8px;
+        overflow: hidden;
+        color: var(--color-purple);
+        font: normal var(--work-wheel-font-size)/1.2 var(--font-family-poppins);
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: color 180ms ease;
+        -webkit-user-drag: none;
+        &:hover,
+        &:focus-visible {
             color: var(--color-orange);
+        }
+        &:focus-visible {
+            outline: 2px solid var(--color-orange);
+            outline-offset: 4px;
+        }
+    }
+    .work-wheel__item--active .work-wheel__link {
+        color: var(--color-orange);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .work-wheel {
+        --work-wheel-fade: 0ms;
+        .work-wheel__link {
+            transition: none;
         }
     }
 }
@@ -315,7 +372,7 @@
     justify-content: center;
     align-items: center;
     gap: clamp(40px, 8vw, 140px);
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 146px);
     padding: clamp(60px, 10vw, 150px) clamp(40px, 12vw, 180px);
     background: var(--color-grey);
     color: var(--color-orange);
@@ -386,6 +443,17 @@
 /* Styling of all available teaser components. */
 
 /* Styling of utility classes, can be added anywhere in the project. */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
 
 /* BREAKPOINT: 3xl */
 @media (max-width: 1514px) {}
@@ -398,10 +466,30 @@
 
 /* BREAKPOINT: md */
 @media (max-width: 768px) {
-    [data-module="overview_projects"] {
-        .projects {
-            column-count: 2;
+    /* Work-Rad mobil: Illustration links oben, Animation rechts oben, Rad, Vorschaubild unten */
+    .work-wheel {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: clamp(64px, 12vh, 110px) minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas:
+            "illustration animation"
+            "list         list"
+            "preview      preview";
+        gap: 12px;
+        padding: 16px;
+
+        .work-wheel__illustration,
+        .work-wheel__animation {
+            height: 100%;
+            aspect-ratio: 1 / 1;
         }
+        .work-wheel__illustration {
+            justify-self: start;
+        }
+        .work-wheel__animation {
+            justify-self: end;
+        }
+        --work-wheel-row: 2.25rem;
+        --work-wheel-font-size: 1.25rem;
     }
 
     [data-page="project"] {
@@ -436,13 +524,7 @@
 }
 
 /* BREAKPOINT: sm */
-@media (max-width: 640px) {
-    [data-module="overview_projects"] {
-        .projects {
-            column-count: 1;
-        }
-    }
-}
+@media (max-width: 640px) {}
 
 /* BREAKPOINT: xs */
 @media (max-width: 425px) {}

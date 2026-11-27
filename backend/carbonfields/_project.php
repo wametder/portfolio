@@ -17,7 +17,8 @@ Container::make('post_meta', 'Projekt')
                 Field::make('image', 'image', 'Bild')->set_required(true),
             ])
             ->set_layout('tabbed-vertical'),
-        Field:: make('image', 'illustration', 'Illustration') -> set_required(true),
+        Field::make('image', 'illustration', 'Illustration')
+            ->set_help_text('SVG oder PNG mit Transparenz. Optional, wird auf der Work-Seite über dem Rad angezeigt.'),
         Field:: make('textarea', 'lead', 'Lead'),
         Field:: make('rich_text', 'text', 'Text') -> set_required(true) ->set_help_text('Beschreibung des Projekts'),
     ]);
