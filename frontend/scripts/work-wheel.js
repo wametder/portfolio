@@ -8,7 +8,7 @@
 const MIN_ITEMS = 10;         // so viele Einträge braucht das Rad mindestens (sonst wird geklont)
 const VISIBLE_RANGE = 4;      // ab diesem Abstand zur Mitte ist ein Titel unsichtbar (in Ruhe 7 sichtbar)
 const ROWS_IN_VIEW = 7;       // Titel, die in Ruhe in die Listenhöhe passen müssen
-const ROW_FALLBACK = 44;      // Zeilenhöhe, falls --work-wheel-row im CSS fehlt
+const ROW_FALLBACK = 30;      // Zeilenhöhe, falls --work-wheel-row im CSS fehlt
 const ROW_MIN = 24;           // minimale Zeilenhöhe in px
 const LERP = 0.14;            // Trägheit pro Frame (bei 60 fps)
 const WHEEL_PX_PER_SLOT = 110; // Mausrad-/Trackpad-Pixel pro Projektschritt

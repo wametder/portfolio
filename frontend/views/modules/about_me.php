@@ -1,5 +1,6 @@
 <?php
 $data = $args['data'];
+$legals = get_menu_by_slug(slug: 'legals');
 ?>
 
 <section data-module="about_me">
@@ -27,4 +28,15 @@ $data = $args['data'];
             >
         <?php endif; ?>
     </div>
+    <?php if ($legals): ?>
+        <nav class="legal-links" aria-label="Rechtliches">
+            <ul>
+                <?php foreach ($legals as $item): ?>
+                    <li>
+                        <a href="<?= esc_url($item['url']) ?>" target="<?= esc_attr($item['target']) ?>"><?= esc_html($item['title']) ?></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
+    <?php endif; ?>
 </section>

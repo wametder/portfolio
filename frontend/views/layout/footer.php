@@ -1,19 +1,11 @@
 <?php
-$menu = get_menu_by_slug( slug: 'legals');
 $illuface = get_globals_illuface();
+$band = !empty($illuface['src']) ? $illuface['src'] : '';
 ?>
 
-<footer data-layout="footer">
-    <img class="illuface" src="<?= ($illuface['src']) ?>" alt="<?= ($illuface['alt']) ?>">
-    <nav class="nav-container">
-        <ul class="nav">
-            <?php foreach ($menu as $item) : ?>
-                <li class="nav-item">
-                    <a href="<?= esc_url($item['url']) ?>" target="<?= esc_attr($item['target']) ?>">
-                        <?= esc_html($item['title']) ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </nav>
+<footer
+    data-layout="footer"
+    <?php if ($band): ?>style="--footer-band: url('<?= esc_url($band) ?>')"<?php endif; ?>
+>
+    <p class="copyright">&copy;Nicolas Egger</p>
 </footer>
