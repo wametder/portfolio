@@ -14,5 +14,6 @@ $illuface = get_globals_illuface();
                     </a>
                 </li>
             <?php endforeach; ?>
-        </ul
+        </ul>
+    </nav>
 </footer>

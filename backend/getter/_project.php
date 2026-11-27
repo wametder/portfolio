@@ -14,11 +14,11 @@ function get_project_by_id(int $id): array{
         $additional_images
     )));
     $preview_id = carbon_get_post_meta($id, 'preview');
-    $preview = get_media_by_id($preview_id);
+    $preview = $preview_id ? get_media_by_id($preview_id) : false;
     $lead = carbon_get_post_meta($id, 'lead');
     $text = carbon_get_post_meta($id, 'text');
     $illustration_id = carbon_get_post_meta($id, 'illustration');
-    $illustration = get_media_by_id($illustration_id);
+    $illustration = $illustration_id ? get_media_by_id($illustration_id) : false;
     $link = get_permalink($id);
     // return data
     return [

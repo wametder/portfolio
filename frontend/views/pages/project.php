@@ -4,7 +4,9 @@ $project = get_project_by_id(get_the_ID());
 
 <main data-page="project">
     <div class="project-info">
-        <img class="illustration" src="<?= $project ['illustration']['src'] ?>" alt="<?= $project ['illustration']['alt'] ?>">
+        <?php if ($project['illustration']): ?>
+            <img class="illustration" src="<?= esc_url($project['illustration']['src']) ?>" alt="<?= esc_attr($project['illustration']['alt']) ?>">
+        <?php endif; ?>
         <h1 class="title" ><?= $project['title'] ?></h1>
         <p class="lead"><?= $project['lead'] ?></p>
         <div class="text">
