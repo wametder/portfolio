@@ -24,7 +24,7 @@
 /* Styling of all available layout components. */
 [data-layout="header"] {
     padding: 10px 24px;
-    background-color: var(--color-orange);
+    background-color: var(--color-purple);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -43,10 +43,10 @@
             width: 100%;
             a {
                 text-decoration: none;
-                color: var(--color-purple);
+                color: var(--color-green);
                 font: var(--font-h1);
                 &:hover {
-                    color: var(--color-green);
+                    color: var(--color-orange);
                 }
             }
         }
