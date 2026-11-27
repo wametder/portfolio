@@ -58,39 +58,24 @@
     }
 }
 
+/* Footer: Band aus der globalen Illustration (Illustration_Gesicht), darüber zentriert der Copyright-Text */
 [data-layout="footer"] {
+    --footer-height: 100px;
     position: relative;
     z-index: 2;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-    padding: calc(var(--gap-around) / 2) var(--gap-around);
-    background-color: var(--color-orange);
-    .nav-container {
-
-        .nav {
-            list-style: none;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 20px;
-            a {
-                text-decoration: none;
-                font: var(--font-h2);
-                color: var(--color-purple);
-                &:hover {
-                    color: var(--color-green);
-                }
-            }
-        }
-    }
-    .illuface {
-        width: 50px;
-        height: 50px;
-        object-fit: contain;
+    height: var(--footer-height);
+    padding: 0 var(--gap-around);
+    /* Illustration einmal über den ganzen Footer, Seitenverhältnis bleibt erhalten (kein Verziehen, keine Wiederholung) */
+    background: var(--footer-band, none) center / cover no-repeat, var(--color-grey);
+    .copyright {
+        position: relative;
+        color: var(--color-green);
+        font: var(--font-h1);
+        text-align: center;
+        white-space: nowrap;
     }
 }
 
@@ -216,7 +201,7 @@
     & > .title {
         position: relative;
         color: var(--color-purple);
-        font: var(--font-h1);
+        font: var(--font-h2);
         text-align: center;
         z-index: 1;
     }
@@ -236,6 +221,7 @@ html:has(.work-wheel) {
 body:has(.work-wheel) {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     height: calc(100vh - var(--wp-admin--admin-bar--height, 0px));
     height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
     overflow: hidden;
@@ -247,15 +233,20 @@ body:has(.work-wheel) {
 }
 .work-wheel {
     --work-wheel-fade: 250ms;
-    --work-wheel-row: 2.75rem; /* Zeilenhöhe eines Titels; JS verkleinert sie, falls 7 Titel nicht passen */
-    --work-wheel-font-size: 1.5rem;
+    --work-wheel-font-size: 1.25rem;
+    --work-wheel-row: calc(var(--work-wheel-font-size) * 1.5); /* Zeilenhöhe eines Titels; JS verkleinert sie, falls 7 Titel nicht passen */
+    --work-wheel-rows: 7; /* sichtbare Titel in Ruhe, muss zu ROWS_IN_VIEW im JS passen */
+    --work-wheel-illustration: 60px;
+    --work-wheel-animation: 350px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1fr);
-    grid-template-rows: clamp(80px, 16vh, 160px) minmax(0, 1fr);
+    /* Obere und untere Zeile gleich hoch: die Liste liegt genau in der vertikalen Mitte */
+    grid-template-rows: minmax(0, 1fr) minmax(0, calc(var(--work-wheel-rows) * var(--work-wheel-row))) minmax(0, 1fr);
     grid-template-areas:
         "preview illustration animation"
-        "preview list         animation";
-    gap: 16px clamp(24px, 3vw, 64px);
+        "preview list         animation"
+        "preview .            animation";
+    column-gap: clamp(24px, 3vw, 64px);
     height: 100%;
     padding: clamp(16px, 4vh, 48px) var(--gap-around);
     background: var(--color-grey);
@@ -277,9 +268,15 @@ body:has(.work-wheel) {
     }
     .work-wheel__illustration {
         grid-area: illustration;
+        align-self: end;
+        width: 100%;
+        height: min(var(--work-wheel-illustration), calc(100% - 16px));
+        margin-bottom: 16px;
     }
     .work-wheel__animation {
         grid-area: animation;
+        align-self: center;
+        height: min(var(--work-wheel-animation), 100%);
         canvas {
             position: absolute;
             inset: 0;
@@ -306,6 +303,7 @@ body:has(.work-wheel) {
     .work-wheel__list {
         grid-area: list;
         position: relative;
+        height: 100%;
         min-height: 0;
         list-style: none;
         overflow: hidden;
@@ -439,6 +437,30 @@ body:has(.work-wheel) {
         border: 0;
         object-fit: contain;
     }
+
+    /* Datenschutz & Impressum: klein und unauffällig ganz unten */
+    .legal-links {
+        grid-column: 1 / -1;
+        justify-self: center;
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 20px;
+            list-style: none;
+        }
+        a {
+            color: var(--color-black);
+            font: normal 12px/1.4 var(--font-family-poppins);
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 180ms ease;
+            &:hover,
+            &:focus-visible {
+                opacity: 1;
+            }
+        }
+    }
 }
 /* Styling of all available teaser components. */
 
@@ -468,8 +490,10 @@ body:has(.work-wheel) {
 @media (max-width: 768px) {
     /* Work-Rad mobil: Illustration links oben, Animation rechts oben, Rad, Vorschaubild unten */
     .work-wheel {
+        --work-wheel-font-size: 1.125rem;
+        --work-wheel-animation: clamp(64px, 12vh, 110px);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-rows: clamp(64px, 12vh, 110px) minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: var(--work-wheel-animation) minmax(0, calc(var(--work-wheel-rows) * var(--work-wheel-row))) minmax(0, 1fr);
         grid-template-areas:
             "illustration animation"
             "list         list"
@@ -479,17 +503,42 @@ body:has(.work-wheel) {
 
         .work-wheel__illustration,
         .work-wheel__animation {
-            height: 100%;
+            align-self: center;
+            width: auto;
             aspect-ratio: 1 / 1;
+            margin: 0;
         }
         .work-wheel__illustration {
             justify-self: start;
+            height: min(var(--work-wheel-illustration), 100%);
         }
         .work-wheel__animation {
             justify-self: end;
+            height: 100%;
         }
-        --work-wheel-row: 2.25rem;
-        --work-wheel-font-size: 1.25rem;
+    }
+
+    [data-layout="footer"] {
+        --footer-height: 48px;
+        padding: 0 16px;
+        .copyright {
+            font-size: 18px;
+        }
+    }
+
+    [data-layout="header"] {
+        gap: 16px;
+        padding: 10px 16px;
+        .nav-container .nav {
+            gap: 16px;
+            a {
+                font-size: 22px;
+            }
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+        }
     }
 
     [data-page="project"] {
